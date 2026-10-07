@@ -35,10 +35,10 @@ def prepare_source() -> None:
 def verify_data() -> None:
     from torchvision.datasets import CIFAR10, CIFAR100
 
-    cifar10_train = CIFAR10(ROOT / "data", train=True, download=False)
-    cifar10_test = CIFAR10(ROOT / "data", train=False, download=False)
-    cifar100_train = CIFAR100(ROOT / "data", train=True, download=False)
-    cifar100_test = CIFAR100(ROOT / "data", train=False, download=False)
+    cifar10_train = CIFAR10(ROOT / "data", train=True, download=True)
+    cifar10_test = CIFAR10(ROOT / "data", train=False, download=True)
+    cifar100_train = CIFAR100(ROOT / "data", train=True, download=True)
+    cifar100_test = CIFAR100(ROOT / "data", train=False, download=True)
     assert (len(cifar10_train), len(cifar10_test)) == (50_000, 10_000)
     assert (len(cifar100_train), len(cifar100_test)) == (50_000, 10_000)
 
