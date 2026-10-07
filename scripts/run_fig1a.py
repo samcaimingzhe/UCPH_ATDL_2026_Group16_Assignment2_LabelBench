@@ -2,6 +2,7 @@
 """Launch the authors' complete CIFAR-10 experiment for LabelBench Figure 1(a)."""
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -9,7 +10,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / ".labelbench"
 COMMIT = "9e23393ba5dd48fc7c23293e441337a5e45a3edf"
-REPOSITORY = "https://github.com/EfficientTraining/LabelBench.git"
 STRATEGIES = [
     "random_sampling.json",
     "confidence_sampling.json",
@@ -22,15 +22,14 @@ STRATEGIES = [
 ]
 
 
-def prepare_official_source() -> None:
+def verify_assets() -> None:
     if not SOURCE.exists():
-        subprocess.run(["git", "clone", REPOSITORY, str(SOURCE)], check=True)
-    current = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=SOURCE, text=True
-    ).strip()
+        raise RuntimeError("official source is missing; run scripts/prepare_assets.py first")
+    current = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=SOURCE, text=True).strip()
     if current != COMMIT:
-        subprocess.run(["git", "fetch", "origin", COMMIT], cwd=SOURCE, check=True)
-        subprocess.run(["git", "checkout", "--detach", COMMIT], cwd=SOURCE, check=True)
+        raise RuntimeError("LabelBench source version does not match; rerun scripts/prepare_assets.py")
+    if not list((ROOT / "model").glob("*.pt")):
+        raise RuntimeError("CLIP ViT-B/32 weight is missing; run scripts/prepare_assets.py first")
 
 
 def main() -> None:
@@ -41,7 +40,7 @@ def main() -> None:
     parser.add_argument("--skip", type=int, default=0)
     args = parser.parse_args()
 
-    prepare_official_source()
+    verify_assets()
     command = [
         sys.executable,
         "mp_launcher.py",
@@ -62,7 +61,9 @@ def main() -> None:
         "--gpu_masks", *(str(gpu) for gpu in args.gpus),
         "--skip", str(args.skip),
     ]
-    subprocess.run(command, cwd=SOURCE, check=True)
+    environment = os.environ.copy()
+    environment["LABELBENCH_MODEL_DIR"] = str(ROOT / "model")
+    subprocess.run(command, cwd=SOURCE, env=environment, check=True)
 
 
 if __name__ == "__main__":
