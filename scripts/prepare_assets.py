@@ -10,8 +10,8 @@ MODEL_DIR = ROOT / "model"
 def verify_data() -> None:
     from torchvision.datasets import CIFAR10
 
-    cifar10_train = CIFAR10(ROOT / "data", train=True, download=True)
-    cifar10_test = CIFAR10(ROOT / "data", train=False, download=True)
+    cifar10_train = CIFAR10(ROOT / "data", train=True, download=False)
+    cifar10_test = CIFAR10(ROOT / "data", train=False, download=False)
     assert (len(cifar10_train), len(cifar10_test)) == (50_000, 10_000)
 
 
