@@ -11,4 +11,6 @@ regex
 timm
 wilds
 open_clip_torch
+clip
+functorch
 git+https://github.com/openai/CLIP.git
