@@ -30,7 +30,7 @@ def main():
     env=os.environ.copy()
     env["CUDA_VISIBLE_DEVICES"]=str(gpu)
     env["LABELBENCH_MODEL_DIR"]=str(ROOT/"model")
-    cmd=[sys.executable,str(ROOT/"scripts/train_one.py"),"--strategy",strategy,"--seed",str(seed),"--output-dir",str(output)]
+    cmd=[sys.executable,str(ROOT/"scripts/train_fig1a_one.py"),"--strategy",strategy,"--seed",str(seed),"--output-dir",str(output)]
     print(
      "start strategy={} seed={} gpu={}".format(strategy, seed, gpu),
      flush=True
