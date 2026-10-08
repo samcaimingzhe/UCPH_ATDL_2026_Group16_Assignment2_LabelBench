@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Plot Figure 1(a) mean and standard error from four completed seeds."""
+import argparse
 import sqlite3
 from pathlib import Path
 
@@ -43,7 +44,11 @@ def read_trials(db, strategy):
 
 
 def main():
-    path = database_path()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, help="same directory used for training")
+    args = parser.parse_args()
+    output_dir = (args.output_dir or ROOT / "results").resolve()
+    path = database_path(output_dir)
     if not path.is_file():
         raise RuntimeError(f"no local experiment database: {path}")
 
@@ -63,7 +68,7 @@ def main():
     ax.grid(True, linestyle="--", alpha=.6)
     ax.legend(fontsize=8, ncol=1)
     fig.tight_layout()
-    output = ROOT / "results/figure1a.png"
+    output = output_dir / "figure1a.png"
     fig.savefig(output, dpi=220)
     plt.close(fig)
     print(f"Saved {output} from {len(SEEDS)} seeds per strategy")
