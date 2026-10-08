@@ -1,7 +1,10 @@
 # LabelBench CIFAR-10 Reproduction
 Paper: [*LabelBench: A Comprehensive Framework for Benchmarking Adaptive Label-Efficient Learning*](https://arxiv.org/abs/2306.09910)
 
-Group 16's reproduction of Figures 1(a) and 5(a) from this paper. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget; 
+**NDAK24003U Advanced Topics in Deep Learning (ATDL)** --- Assignment 2
+Group 16 contributors: Mingzhe Cai; Shang Xi; Yusheng Lu; Zecheng Zhang;
+
+This repository is trying to reproduce Figures 1(a) and 5(a) from LabelBench. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget; 
 
 Figure 1(a) cost 8 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies).
 
