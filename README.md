@@ -24,11 +24,8 @@ python scripts/run_fig1a.py --gpus 0 1
 python scripts/plot_fig1a.py
 
 # Figure 5(a): proxy selection, then full-model evaluation
-python scripts/run_fig5.py --panel a --phase selection --gpus 0 1
-python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 1
+python scripts/run_fig5.py --panel a --phase selection --gpus 0 --output-dir results/fig5
+python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 --output-dir results/fig5
 python scripts/plot_fig5.py --panel a
 ```
-
-Defaults: Figure 1(a) writes to `results/` (`figure1a.sqlite`, `figure1a.png`; an existing `experiments.sqlite` is also reused). Figure 5(a) writes to `results/fig5/a/` (`figure5a.sqlite`, `figure5a.png`, `summary.csv`). To use another directory, pass the same `--output-dir /path/to/output` to that panel's training and plotting commands.
-
 Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. Plotting requires all four seeds to finish. Figure 5(a)'s plot uses evaluation metrics, not proxy-selection metrics.
