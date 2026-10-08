@@ -1,12 +1,17 @@
 # LabelBench CIFAR-10 Reproduction
+Paper: [*LabelBench: A Comprehensive Framework for Benchmarking Adaptive Label-Efficient Learning*](https://arxiv.org/abs/2306.09910)
 
-Group 16's reproduction of Figures 1(a) and 5(a) from *LabelBench: A Comprehensive Framework for Benchmarking Adaptive Label-Efficient Learning*. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. ImageNet experiments are outside our compute budget; Figure 5(a) selection alone took about nine hours on two NVIDIA A30 GPUs.
+Group 16's reproduction of Figures 1(a) and 5(a) from this paper. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget; 
 
-Our scripts build on the [authors' code](https://github.com/EfficientTraining/LabelBench). The original implementation logs runs to Weights & Biases; this repository stores run status, metrics, and Figure 5(a) selections locally in SQLite. Each panel uses four seeds (`1234`, `3334155`, `6667077`, `9999999`) and ten rounds of 1,000 new labels.
+Figure 1(a) cost 8 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies).
+
+Figure 5(a) selection alone took about 9 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies * 2 phase).
+
+Our scripts build on the [authors' code](https://github.com/EfficientTraining/LabelBench). The original implementation logs runs to Weights & Biases, this repository stores the results locally in SQLite. Each panel uses four seeds (`1234`, `3334155`, `6667077`, `9999999`) and ten epoch of 1,000 new labels.
 
 ## Setup
 
-An NVIDIA CUDA GPU is required for training. From the repository root:
+Before training, please create a virtual environment and install the required dependencies:
 
 ```bash
 conda create -n labelbench python=3.10.22
@@ -14,7 +19,9 @@ conda activate labelbench
 python -m pip install -r requirements.txt
 ```
 
-CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; the dataset/model loaders download missing assets when network access is available.
+CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; the dataset/model loaders download missing assets when network access is available. 
+
+Note that download speed of CIFAR-10 is really slow.
 
 ## Run
 
