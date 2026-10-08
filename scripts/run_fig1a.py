@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Run Figure 1(a): eight strategies, one seed, local SQLite logging."""
+"""Run Figure 1(a): eight strategies, four seeds, local SQLite logging."""
 import argparse, os, subprocess, sys
 from collections import deque
 from pathlib import Path
-import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 ALL=["random","confidence","entropy","margin","coreset","galaxy","badge","bait"]
-SEEDS=np.linspace(1234,9999999,num=1,dtype=int).tolist()
+SEEDS=[1234,3334155,6667077,9999999]
+def database_path():
+ preferred=ROOT/"results/figure1a.sqlite"
+ legacy=ROOT/"results/experiments.sqlite"
+ return preferred if preferred.is_file() or not legacy.is_file() else legacy
 def main():
  p=argparse.ArgumentParser()
  p.add_argument("--gpus",nargs="+",type=int,required=True)
