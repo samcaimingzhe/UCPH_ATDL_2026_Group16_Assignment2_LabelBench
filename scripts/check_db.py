@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Show the number of recorded training rounds in a LabelBench database."""
+"""Show recorded training rounds in a Figure 1 or Figure 5 database."""
 import argparse
 from pathlib import Path
 import sqlite3
@@ -15,23 +15,24 @@ def main():
         parser.error(f'Database not found: {path}')
     try:
         with sqlite3.connect(path.as_uri() + '?mode=ro', uri=True, timeout=30) as db:
+            columns = {row[1] for row in db.execute('PRAGMA table_info(metrics)')}
+            if not {'strategy', 'seed', 'round'}.issubset(columns):
+                raise sqlite3.DatabaseError('metrics table is missing required columns')
+            has_phase = 'phase' in columns
+            group_columns = 'strategy, seed, phase' if has_phase else 'strategy, seed'
+            order_columns = 'phase, strategy, seed' if has_phase else 'strategy, seed'
             total = db.execute('SELECT COUNT(*) FROM metrics').fetchone()[0]
-            rows = db.execute('''
-                SELECT strategy, seed, phase, COUNT(*)
-                FROM metrics
-                GROUP BY strategy, seed, phase
-                ORDER BY phase, strategy, seed
-            ''').fetchall()
+            rows = db.execute(
+                f'SELECT {group_columns}, COUNT(*) FROM metrics '
+                f'GROUP BY {group_columns} ORDER BY {order_columns}'
+            ).fetchall()
     except sqlite3.Error as exc:
         print(f'Error reading database: {exc}', file=sys.stderr)
         return 1
-    finally:
-        if 'db' in locals():
-            db.close()
     print(f'Database: {path}')
     print(f'Total recorded rounds: {total}')
-    print(f'Total method/seed/phase groups: {len(rows)}')
-    print('\nstrategy | seed | phase | recorded_rounds')
+    print(f'Total method/seed{"/phase" if has_phase else ""} groups: {len(rows)}')
+    print(f'\nstrategy | seed{" | phase" if has_phase else ""} | recorded_rounds')
     for row in rows:
         print(' | '.join(map(str, row)))
     print('\nOnly saved records are counted; unfinished rounds and internal epochs are excluded.')
