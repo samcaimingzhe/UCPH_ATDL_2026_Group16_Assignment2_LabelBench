@@ -20,7 +20,7 @@ CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; t
 
 ```bash
 # Figure 1(a): full-model selection and evaluation
-python scripts/run_fig1a.py --gpus 0 1
+python scripts/run_fig1a.py --gpus 0 --output-dir results/fig1
 python scripts/plot_fig1a.py
 
 # Figure 5(a): proxy selection, then full-model evaluation
