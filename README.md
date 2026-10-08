@@ -29,3 +29,35 @@ python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 --output-dir resu
 python scripts/plot_fig5.py --panel a
 ```
 Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. Plotting requires all four seeds to finish. Figure 5(a)'s plot uses evaluation metrics, not proxy-selection metrics.
+```
+# run_fig1a.py
+usage: run_fig1a.py [-h]
+                    --gpus GPUS [GPUS ...]
+                    [--strategies {random,confidence,entropy,margin,coreset,galaxy,badge,bait} [{random,confidence,entropy,margin,coreset,galaxy,badge,bait} ...]]
+                    [--skip SKIP]
+
+options:
+  -h, --help           show this help
+                       message and exit
+  --gpus GPUS [GPUS ...]
+  --strategies {random,confidence,entropy,margin,coreset,galaxy,badge,bait} [{random,confidence,entropy,margin,coreset,galaxy,badge,bait} ...]
+  --skip SKIP
+
+# run_fig5.py
+usage: run_fig5.py [-h] --panel {a,b,c} [--gpus GPUS [GPUS ...]]
+                   [--strategies STRATEGIES [STRATEGIES ...]] [--seeds SEEDS [SEEDS ...]]
+                   [--phase {all,selection,evaluate}] [--output-dir OUTPUT_DIR]
+                   [--save-checkpoints] [--dry-run]
+
+options:
+  -h, --help            show this help message and exit
+  --panel {a,b,c}
+  --gpus GPUS [GPUS ...]
+  --strategies STRATEGIES [STRATEGIES ...]
+  --seeds SEEDS [SEEDS ...]
+  --phase {all,selection,evaluate}
+                        a/b: collect proxy labels, evaluate saved labels, or both
+  --output-dir OUTPUT_DIR
+  --save-checkpoints    save final-round weights (large for CLIP)
+  --dry-run             print the plan without training or creating output files
+```
