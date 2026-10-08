@@ -12,7 +12,6 @@ An NVIDIA CUDA GPU is required for training. From the repository root:
 conda create -n labelbench python=3.10.22
 conda activate labelbench
 python -m pip install -r requirements.txt
-pip install 'numpy<2'
 ```
 
 CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; the dataset/model loaders download missing assets when network access is available.
