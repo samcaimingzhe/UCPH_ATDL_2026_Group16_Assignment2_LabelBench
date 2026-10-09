@@ -63,7 +63,7 @@ def main():
             sem = values.std(axis=0, ddof=1) / np.sqrt(len(SEEDS))
             summaries.append((strategy, mean, sem))
 
-    fig, ax = plt.subplots(figsize=(4, 3.5))
+    fig, ax = plt.subplots(figsize=(3.5, 2.8))
     for (strategy, mean, sem), color in zip(summaries, COLORS):
         ax.plot(EXPECTED_LABELS, mean, label=strategy.upper(), color=color, linewidth=2)
         ax.fill_between(EXPECTED_LABELS, mean - sem, mean + sem, color=color, alpha=0.18)
