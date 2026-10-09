@@ -38,8 +38,8 @@ python scripts/run_fig1a.py --gpus 0 --output-dir results/fig1
 python scripts/plot_fig1a.py
 
 # Figure 5(a): proxy selection, then full-model evaluation
-python scripts/run_fig5.py --panel a --phase selection --gpus 0 --output-dir results/fig5
-python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 --output-dir results/fig5
+python scripts/run_fig5.py --panel a --phase selection --gpus 0 --output results/fig5
+python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 --output results/fig5
 python scripts/plot_fig5.py --panel a
 
 # Check the results
