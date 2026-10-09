@@ -177,7 +177,7 @@ class PyTorchPassiveTrainer(Trainer):
             transform = model.module.get_preprocess(split="test")
             dataset.set_transform(transform)
 
-        loader = DataLoader(dataset, batch_size=self.trainer_config["test_batch_size"], shuffle=False, num_workers=10)
+        loader = DataLoader(dataset, batch_size=self.trainer_config["test_batch_size"], shuffle=False, num_workers=kwargs.get("num_workers", self.trainer_config.get("test_num_workers", 10)))
         preds = np.zeros((len(dataset), self.dataset.num_classes), dtype=float)
         labels = np.zeros((len(dataset), self.dataset.num_classes), dtype=float)
         losses = np.zeros(len(dataset), dtype=float)
