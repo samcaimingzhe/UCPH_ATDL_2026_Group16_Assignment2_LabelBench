@@ -46,13 +46,14 @@ def read_trials(db, strategy):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, help="same directory used for training")
+    parser.add_argument("--db", type=Path, help="input Figure 1(a) SQLite database")
     args = parser.parse_args()
     output_dir = (args.output_dir or ROOT / "results").resolve()
-    path = database_path(output_dir)
+    path = (args.database or database_path(output_dir)).resolve()
     if not path.is_file():
-        raise RuntimeError(f"no local experiment database: {path}")
+        parser.error(f"experiment database not found: {path}")
 
-    with sqlite3.connect(path) as db:
+    with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True) as db:
         summaries = []
         for strategy in ALL:
             values = read_trials(db, strategy)
@@ -68,6 +69,7 @@ def main():
     ax.grid(True, linestyle="--", alpha=.6)
     ax.legend(fontsize=8, ncol=1)
     fig.tight_layout()
+    output_dir.mkdir(parents=True, exist_ok=True)
     output = output_dir / "figure1a.png"
     fig.savefig(output, dpi=220)
     plt.close(fig)
