@@ -15,9 +15,12 @@ Our scripts build on the [authors' code](https://github.com/EfficientTraining/La
 
 ## Setup
 
-Before training, please create a virtual environment and install the required dependencies:
-
 ```bash
+# Download the repository
+git clone https://github.com/samcaimingzhe/UCPH_ATDL_2026_Group16_Assignment2_LabelBench.git
+cd UCPH_ATDL_2026_Group16_Assignment2_LabelBench
+
+# Before training, please create a virtual environment and install the required dependencies
 conda create -n labelbench python=3.10.22
 conda activate labelbench
 python -m pip install -r requirements.txt
