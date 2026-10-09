@@ -45,8 +45,9 @@ def read_trials(db, strategy):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, help="same directory used for training")
-    parser.add_argument("--db", type=Path, help="input Figure 1(a) SQLite database")
+    parser.add_argument("-o", "--output-dir", type=Path, help="directory for the generated plot")
+    parser.add_argument("-i", "--database", "--db", type=Path,
+                        help="input Figure 1(a) SQLite database")
     args = parser.parse_args()
     output_dir = (args.output_dir or ROOT / "results").resolve()
     path = (args.database or database_path(output_dir)).resolve()
