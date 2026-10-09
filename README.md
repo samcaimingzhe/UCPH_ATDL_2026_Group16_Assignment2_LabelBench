@@ -5,7 +5,7 @@ Paper: [LabelBench: A Comprehensive Framework for Benchmarking Adaptive Label-Ef
 
 Group 16 contributors: Mingzhe Cai; Shang Xi; Yusheng Lu; Zecheng Zhang;
 
-This repository is trying to reproduce Figures 1(a) and 5(a) from LabelBench. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget; 
+This repository is trying to reproduce Figures 1(a) and 5(a) from LabelBench. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget;
 
 Figure 1(a) cost 8 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies).
 
@@ -26,7 +26,7 @@ conda activate labelbench
 python -m pip install -r requirements.txt
 ```
 
-CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; the dataset/model loaders download missing assets when network access is available. 
+CIFAR-10 and the pretrained CLIP weights are loaded from `data/` and `model/`; the dataset/model loaders download missing assets when network access is available.
 
 Note that download speed of CIFAR-10 is really slow.
 
@@ -88,3 +88,9 @@ options:
   --save-checkpoints    save final-round weights (large for CLIP)
   --dry-run             print the plan without training or creating output files
 ```
+
+## Reproduction result
+
+Figure 1(a) shows a similar trend to the paper: active selection generally outperforms random sampling, and most methods approach 98% test accuracy at 10,000 labels. Small differences remain between the curves.
+
+![Original Figure 1(a) and our reproduction](compare/fig1a_compare.jpg)
