@@ -53,42 +53,6 @@ python scripts/plot_fig1a.py --input results/fig1a/figure1a.sqlite --output resu
 python scripts/plot_fig5.py --input results/fig1a/figure1a.sqlite --output results/plots/
 ```
 
-
-
-
-```
-# run_fig1a.py
-usage: run_fig1a.py [-h]
-                    --gpus GPUS [GPUS ...]
-                    [--strategies {random,confidence,entropy,margin,coreset,galaxy,badge,bait} [{random,confidence,entropy,margin,coreset,galaxy,badge,bait} ...]]
-                    [--skip SKIP]
-
-options:
-  -h, --help           show this help
-                       message and exit
-  --gpus GPUS [GPUS ...]
-  --strategies {random,confidence,entropy,margin,coreset,galaxy,badge,bait} [{random,confidence,entropy,margin,coreset,galaxy,badge,bait} ...]
-  --skip SKIP
-
-# run_fig5.py
-usage: run_fig5.py [-h] --panel {a,b,c} [--gpus GPUS [GPUS ...]]
-                   [--strategies STRATEGIES [STRATEGIES ...]] [--seeds SEEDS [SEEDS ...]]
-                   [--phase {all,selection,evaluate}] [--output-dir OUTPUT_DIR]
-                   [--save-checkpoints] [--dry-run]
-
-options:
-  -h, --help            show this help message and exit
-  --panel {a,b,c}
-  --gpus GPUS [GPUS ...]
-  --strategies STRATEGIES [STRATEGIES ...]
-  --seeds SEEDS [SEEDS ...]
-  --phase {all,selection,evaluate}
-                        a/b: collect proxy labels, evaluate saved labels, or both
-  --output-dir OUTPUT_DIR
-  --save-checkpoints    save final-round weights (large for CLIP)
-  --dry-run             print the plan without training or creating output files
-```
-
 ## Reproduction result
 
 Figure 1(a) shows a similar trend to the paper: active selection generally outperforms random sampling, and most methods approach 98% test accuracy at 10,000 labels. Small differences remain between the curves.
