@@ -55,9 +55,9 @@ python scripts/check_db.py --db results/fig5/figure5a.sqlite
 python scripts/check_db.py --db results/fig5/figure5b.sqlite
 python scripts/check_db.py --db results/fig5/figure5c.sqlite
 ```
-Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. Plotting requires all four seeds to finish. Figure 5(a)'s plot uses evaluation metrics, not proxy-selection metrics.
-
+Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. 
 ```
+# Plotting
 python scripts/plot_fig1a.py --input results/fig1a/figure1a.sqlite --output results/plots/
 python scripts/plot_fig5.py --input results/fig1a/figure1a.sqlite --output results/plots/
 ```
