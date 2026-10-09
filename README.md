@@ -66,7 +66,7 @@ python scripts/plot_fig5.py --input results/fig1a/figure1a.sqlite --output resul
 
 Figure 1(a): Performance of active learning + FlexMatch (semi-supervised) retraining + CLIP ViT-B32 when given different annotation budgets. Generalization accuracy refers to the model’s Top-1 test accuracy.
 
-
+![Original Figure 1(a) and our reproduction](compare/Fig1a_compare.jpg)
 
 Figure 5(a): Selection with shallow net-work, evaluation on fine-tuning, batch size of 1000
 
