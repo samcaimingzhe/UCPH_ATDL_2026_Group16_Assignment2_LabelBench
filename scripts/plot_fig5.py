@@ -30,8 +30,8 @@ def main(panel=None):
     parser = argparse.ArgumentParser(description=__doc__)
     if panel is None:
         parser.add_argument("--panel", choices=list("abc"), required=True)
-    parser.add_argument("-o", "--output-dir", type=Path)
-    parser.add_argument("-i", "--database", type=Path)
+    parser.add_argument("--output", "-o", "--output-dir", dest="output", type=Path)
+    parser.add_argument("--input", "-i", "--database", dest="input", type=Path)
     parser.add_argument("--strategies", nargs="+")
     parser.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
     parser.add_argument("--smoothing", choices=["max", "none"], default="max",
@@ -49,8 +49,8 @@ def main(panel=None):
         parser.error("strategies must be unique")
     if args.ylim and args.ylim[0] >= args.ylim[1]:
         parser.error("ylim must be increasing")
-    output = (args.output_dir or cfg["output"]).resolve()
-    path = (args.database or database_path(cfg["panel"], output)).resolve()
+    output = (args.output or cfg["output"]).resolve()
+    path = (args.input or database_path(cfg["panel"], output)).resolve()
     if not path.is_file():
         parser.error(f"experiment database not found: {path}; run training first")
     import matplotlib

@@ -45,12 +45,13 @@ def read_trials(db, strategy):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-o", "--output-dir", type=Path, help="directory for the generated plot")
-    parser.add_argument("-i", "--database", "--db", type=Path,
+    parser.add_argument("--output", "-o", "--output-dir", dest="output", type=Path,
+                        help="directory for the generated plot")
+    parser.add_argument("--input", "-i", "--database", "--db", dest="input", type=Path,
                         help="input Figure 1(a) SQLite database")
     args = parser.parse_args()
-    output_dir = (args.output_dir or ROOT / "results").resolve()
-    path = (args.database or database_path(output_dir)).resolve()
+    output_dir = (args.output or ROOT / "results").resolve()
+    path = (args.input or database_path(output_dir)).resolve()
     if not path.is_file():
         parser.error(f"experiment database not found: {path}")
 
