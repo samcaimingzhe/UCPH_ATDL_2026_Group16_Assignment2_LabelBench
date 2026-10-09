@@ -43,10 +43,19 @@ python scripts/run_fig5.py --panel a --phase evaluate --gpus 0 --output-dir resu
 python scripts/plot_fig5.py --panel a
 
 # Check the results
-python scripts/check_db.py --db results/figure1a.sqlite
+python scripts/check_db.py --db results/fig1a/figure1a.sqlite
 python scripts/check_db.py --db results/fig5/a/figure5a.sqlite
 ```
 Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. Plotting requires all four seeds to finish. Figure 5(a)'s plot uses evaluation metrics, not proxy-selection metrics.
+
+```
+python scripts/plot_fig1a.py --db results/fig1a/figure1a.sqlite --output-dir results/plots/
+python scripts/plot_fig5.py --db results/fig1a/figure1a.sqlite --output-dir results/plots/
+```
+
+
+
+
 ```
 # run_fig1a.py
 usage: run_fig1a.py [-h]
