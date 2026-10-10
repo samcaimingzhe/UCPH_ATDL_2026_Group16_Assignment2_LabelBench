@@ -71,6 +71,13 @@ Figure 1(a): Performance of active learning + FlexMatch (semi-supervised) retrai
 
 ![Original Figure 1(a) and our reproduction](compare/Fig1a_compare.jpg)
 
-Figure 5(a): Selection with shallow net-work, evaluation on fine-tuning, batch size of 1000
+Figure 5(a): Selection with shallow net-work, evaluation on fine-tuning, batch size of 1000.
 
 ![Original Figure 5(a) and our reproduction](compare/Fig5a_compare.jpg)
+
+Figure 5(b): Selection with shallow network, evaluation on fine-tuning, batch size of 200
+![Original Figure 5(b) and our reproduction](compare/Fig5b_compare.jpg)
+
+Figure 5(c): Generalization accuracy on CIFAR-10 with passive training.
+![Original Figure 5(c) and our reproduction](compare/Fig5c_compare.jpg)
+
