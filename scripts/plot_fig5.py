@@ -29,8 +29,8 @@ def main(panel=None):
     parser = argparse.ArgumentParser(description=__doc__)
     if panel is None:
         parser.add_argument("--panel", choices=list("abc"), required=True)
-    parser.add_argument("--output", "-o", "--output-dir", dest="output", type=Path)
-    parser.add_argument("--input", "-i", "--database", dest="input", type=Path)
+    parser.add_argument("--output-dir", dest="output", type=Path)
+    parser.add_argument("--input", dest="input", type=Path)
     parser.add_argument("--strategies", nargs="+")
     parser.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
     parser.add_argument("--smoothing", choices=["max", "none"], default="max",
