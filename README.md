@@ -43,11 +43,13 @@ python scripts/plot_fig5.py --panel a  --input results/fig5/figure5a.sqlite --ou
 
 # Figure 5(b): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel b --phase all --gpus 0 --output results/fig5
-python scripts/plot_fig5.py --panel b
+python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --output results/plots/
+
 
 # Figure 5(c): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel c --phase all --gpus 0 --output results/fig5
-python scripts/plot_fig5.py --panel c
+python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output results/plots/
+
 
 # Check the results
 python scripts/check_db.py --db results/fig1a/figure1a.sqlite
