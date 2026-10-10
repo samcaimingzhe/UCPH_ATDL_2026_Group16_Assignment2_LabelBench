@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Read Figure 5 SQLite metrics; export PNG and CSV without training."""
+"""Read Figure 5 SQLite metrics and save a PNG without training."""
 import argparse
-import csv
 from pathlib import Path
 import sqlite3
 
@@ -72,14 +71,11 @@ def main(panel=None):
             sem = values.std(axis=0, ddof=1) / np.sqrt(len(args.seeds))
             summaries.append((strategy, labels, mean, sem))
     output.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(5, 4))
-    csv_rows = []
+    fig, ax = plt.subplots(figsize=(3.5, 2.8))
     for strategy, labels, mean, sem in summaries:
         color = COLORS[STRATEGIES.index(strategy)]
         ax.plot(labels, mean, label=strategy.upper(), color=color, linewidth=2)
         ax.fill_between(labels, mean - sem, mean + sem, color=color, alpha=.25)
-        csv_rows.extend((strategy, int(n), float(m), float(e), len(args.seeds), args.smoothing)
-                        for n, m, e in zip(labels, mean, sem))
     ax.set(xlabel="Number of Labels", ylabel="Test Accuracy")
     if args.ylim:
         ax.set_ylim(*args.ylim)
@@ -89,12 +85,7 @@ def main(panel=None):
     png = output / f"figure5{cfg['panel']}.png"
     fig.savefig(png, dpi=250)
     plt.close(fig)
-    csv_path = output / "summary.csv"
-    with csv_path.open("w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(["strategy", "labels", "mean_test_accuracy", "standard_error", "trials", "smoothing"])
-        writer.writerows(csv_rows)
-    print(f"Saved {png}\nSaved {csv_path}")
+    print(f"Saved {png}")
 
 
 if __name__ == "__main__":
