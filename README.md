@@ -35,7 +35,7 @@ Note that download speed of CIFAR-10 is really slow.
 ```bash
 # Figure 1(a): full-model selection and evaluation
 python scripts/run_fig1.py --gpus 0 --output-dir results/fig1
-python scripts/plot_fig1.py
+python scripts/plot_fig1.py --input results/fig1/figure1a.sqlite --output-dir results/plots/
 
 
 # Figure 5(a): proxy selection, then full-model evaluation
