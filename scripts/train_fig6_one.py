@@ -102,8 +102,13 @@ def main() -> None:
     from LabelBench.model.model import get_model_fn
     from LabelBench.strategy.strategies import get_strategy
     from LabelBench.trainer.trainer import get_fns, get_optimizer_fn, get_scheduler_fn, get_trainer
+    
     from LabelBench.trainer.trainer_impl.flexmatch import FlexmatchTrainer
+    from LabelBench.trainer.trainer_impl.freematch import FreematchTrainer
+    from LabelBench.trainer.trainer_impl.pseudolabel import PseudolabelTrainer
     from LabelBench.trainer.trainer_impl.pytorch_passive_trainer import PyTorchPassiveTrainer
+    from LabelBench.trainer.trainer_impl.softmatch import SoftmatchTrainer
+    from LabelBench.trainer.trainer_impl.uda import UDATrainer
 
     # Match the CPU-side pseudo-label bookkeeping used by this team's Figure 5 worker.
     # The official trainer moves idx_u to CUDA but stores uhat/sigma on CPU, which can
