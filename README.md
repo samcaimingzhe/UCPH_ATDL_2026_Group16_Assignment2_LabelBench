@@ -34,22 +34,21 @@ Note that download speed of CIFAR-10 is really slow.
 
 ```bash
 # Figure 1(a): full-model selection and evaluation
-python scripts/run_fig1a.py --gpus 0 --output-dir results/fig1
-python scripts/plot_fig1a.py
+python scripts/run_fig1.py --gpus 0 --output-dir results/fig1
+python scripts/plot_fig1.py
+
 
 # Figure 5(a): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel a --phase all --gpus 0 --output results/fig5
-python scripts/plot_fig5.py --panel a  --input results/fig5/figure5a.sqlite --output results/plots/
+python scripts/plot_fig5.py --panel a  --input results/fig5/figure5a.sqlite --output-dir results/plots/
 
 # Figure 5(b): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel b --phase all --gpus 0 --output results/fig5
-python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --output results/plots/
-
+python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --output-dir results/plots/
 
 # Figure 5(c): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel c --phase all --gpus 0 --output results/fig5
-python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output results/plots/
-
+python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output-dir results/plots/
 
 # Check the results
 python scripts/check_db.py --db results/fig1a/figure1a.sqlite
@@ -62,6 +61,8 @@ Completed method/seed runs are skipped when restarted with the same output direc
 # Plotting
 python scripts/plot_fig1a.py --input results/fig1a/figure1a.sqlite --output results/plots/
 python scripts/plot_fig5.py --input results/fig1a/figure1a.sqlite --output results/plots/
+
+python scripts/plot_all_metrics.py --input results/fig5/figure5c.sqlite --output-dir results/plots/
 ```
 
 ## Reproduction result
