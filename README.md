@@ -67,17 +67,26 @@ python scripts/plot_all_metrics.py --input results/fig5/figure5c.sqlite --output
 
 ## Reproduction result
 
-Figure 1(a): Performance of active learning + FlexMatch (semi-supervised) retraining + CLIP ViT-B32 when given different annotation budgets. Generalization accuracy refers to the model’s Top-1 test accuracy.
-
-![Original Figure 1(a) and our reproduction](compare/Fig1a_compare.jpg)
-
-Figure 5(a): Selection with shallow net-work, evaluation on fine-tuning, batch size of 1000.
-
-![Original Figure 5(a) and our reproduction](compare/Fig5a_compare.jpg)
-
-Figure 5(b): Selection with shallow network, evaluation on fine-tuning, batch size of 200
-![Original Figure 5(b) and our reproduction](compare/Fig5b_compare.jpg)
-
-Figure 5(c): Generalization accuracy on CIFAR-10 with passive training.
-![Original Figure 5(c) and our reproduction](compare/Fig5c_compare.jpg)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="compare/Fig1a_compare.jpg" alt="Figure 1(a) comparison" width="100%"><br>
+      <em>Figure 1(a): Active learning with FlexMatch retraining and CLIP ViT-B/32 across annotation budgets. Accuracy is Top-1 test accuracy.</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="compare/Fig5a_compare.jpg" alt="Figure 5(a) comparison" width="100%"><br>
+      <em>Figure 5(a): Shallow-network selection, evaluated after fine-tuning; batch size 1,000.</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="compare/Fig5b_compare.jpg" alt="Figure 5(b) comparison" width="100%"><br>
+      <em>Figure 5(b): Shallow-network selection, evaluated after fine-tuning; batch size 200.</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="compare/Fig5c_compare.jpg" alt="Figure 5(c) comparison" width="100%"><br>
+      <em>Figure 5(c): Generalization accuracy on CIFAR-10 with passive training.</em>
+    </td>
+  </tr>
+</table>
 
