@@ -30,7 +30,7 @@ def load(path: Path):
 
 def connect(output: Path, rounds: int, trainer: str) -> sqlite3.Connection:
     output.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(output / "figure6.sqlite", timeout=120)
+    db = sqlite3.connect(output / f"figure6_{trainer}.sqlite", timeout=120)
     db.execute("PRAGMA journal_mode=WAL")
     db.executescript(
         """
