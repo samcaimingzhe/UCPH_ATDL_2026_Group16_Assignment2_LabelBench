@@ -58,14 +58,13 @@ def connect(cfg, output_dir=None):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--dataset", choices=["cifar10", "imagenet"], required=True)
     p.add_argument("--strategy", choices=FILES, required=True)
     p.add_argument("--seed", type=int, required=True)
     p.add_argument("--output-dir", type=Path)
     p.add_argument("--data-dir", type=Path, required=True)
     a = p.parse_args()
 
-    cfg = settings(a.dataset)
+    cfg = settings("cifar10")
     output = (a.output_dir or cfg["output"]).resolve()
     run(a, cfg, output)
 
@@ -101,7 +100,7 @@ def run(a, cfg, output):
     sc = load(ROOT / "configs/strategy" / FILES[a.strategy])
     cc = load(ROOT / "configs/corrupter/noiseless.json")
 
-    data = get_dataset(a.dataset, str(a.data_dir.resolve()))
+    data = get_dataset("cifar10", str(a.data_dir.resolve()))
     mc["num_output"] = data.get_num_classes()
     data.set_corrupter(get_corrupter_fn(cc["name"], cc))
 
