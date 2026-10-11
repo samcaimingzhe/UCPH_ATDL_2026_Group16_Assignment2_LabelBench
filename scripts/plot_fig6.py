@@ -93,17 +93,7 @@ def main() -> None:
     png = output / f"figure6_{args.trainer}.png"
     fig.savefig(png, dpi=250)
     plt.close(fig)
-
-    csv_path = output / "summary.csv"
-    with csv_path.open("w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow([
-            "strategy", "labels", "mean_test_accuracy", "standard_error", "trials", "smoothing"
-        ])
-        writer.writerows(csv_rows)
-
     print(f"Saved {png}")
-    print(f"Saved {csv_path}")
 
 
 if __name__ == "__main__":
