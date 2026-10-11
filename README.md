@@ -7,11 +7,7 @@ Group 16 contributors: Mingzhe Cai; Shang Xi; Yusheng Lu; Zecheng Zhang;
 
 This repository is trying to reproduce Figures 1(a) and 5(a) from LabelBench. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget;
 
-Figure 1(a) cost 8 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies).
-
-Figure 5(a) selection alone took about 9 GPU hours on two NVIDIA A30 GPUs(4 seeds * 8 strategies * 2 phase).
-
-Our scripts build on the [authors' code](https://github.com/EfficientTraining/LabelBench). The original implementation logs runs to Weights & Biases, this repository stores the results locally in SQLite. Each panel uses four seeds (`1234`, `3334155`, `6667077`, `9999999`) and ten epoch of 1,000 new labels.
+Our scripts build on the [authors' code](https://github.com/EfficientTraining/LabelBench). The original implementation logs runs to Weights & Biases, this repository stores the results locally in SQLite. Each panel uses four seeds (`1234`, `3334155`, `6667077`, `9999999`) and ten epoch of 1,000 new labels. Experiment original figure 6 uses three seeds (`1234`, `3334155`, `6667077`).
 
 ## Setup
 
