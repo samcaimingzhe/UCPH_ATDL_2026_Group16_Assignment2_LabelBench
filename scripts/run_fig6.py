@@ -18,7 +18,7 @@ TRAINERS = ("flexmatch", "softmatch", "freematch", "uda", "pseudolabel", "passiv
 # The paper states three trials but does not report the exact seeds.  The team
 # repository already uses endpoints 1234 and 9999999 with np.linspace for its
 # existing seed convention; for three trials this gives these seeds.
-DEFAULT_SEEDS = [1234, 3334155, 6667077, 9999999]
+DEFAULT_SEEDS = [1234, 3334155, 6667077]
 
 
 def main() -> None:
