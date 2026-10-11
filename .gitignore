@@ -1,0 +1,11 @@
+
+# Local LabelBench deployment and generated artifacts
+/work/
+/logs/
+/data/
+/model/
+/results/fig5/features/
+/results/ablation/
+__pycache__/
+*.pyc
+.DS_Store

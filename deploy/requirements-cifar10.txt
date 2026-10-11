@@ -1,0 +1,14 @@
+# Proposed new environment; not recovered from the historical experiments.
+# Install torch/torchvision CUDA wheels first, as explained in the guide.
+torch==2.5.1
+torchvision==0.20.1
+numpy==1.26.4
+scipy==1.14.1
+scikit-learn==1.5.2
+matplotlib==3.9.2
+pillow==10.4.0
+timm==1.0.12
+tqdm==4.67.1
+ftfy==6.3.1
+regex==2024.11.6
+clip @ git+https://github.com/openai/CLIP.git@a1d071733d7111c9c014f024669f959182114e33
