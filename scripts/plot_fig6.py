@@ -25,14 +25,19 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path,
                         help="Defaults to results/fig6/<trainer>.")
     parser.add_argument("--database", type=Path)
-    parser.add_argument("--seeds", nargs="+", type=int, default=DEFAULT_SEEDS)
+    parser.add_argument("--seeds", nargs="+", type=int)
     parser.add_argument("--strategies", nargs="+", choices=ALL, default=ALL)
     parser.add_argument("--smoothing", choices=["max", "none"], default="none",
                         help="Keep raw accuracies by default; max applies optional monotone post-processing.")
     args = parser.parse_args()
 
+    if args.seeds is not None and len(set(args.seeds)) != len(args.seeds):
+        parser.error("seeds must be unique")
     output = (args.output_dir or ROOT / "results" / "fig6" / args.trainer).resolve()
-    path = (args.database or output / "figure6.sqlite").resolve()
+    default_database = output / f"figure6_{args.trainer}.sqlite"
+    if not default_database.is_file():
+        default_database = output / "figure6.sqlite"
+    path = (args.database or default_database).resolve()
     if not path.is_file():
         raise SystemExit(f"database not found: {path}")
 
@@ -51,37 +56,54 @@ def main() -> None:
 
         for strategy in args.strategies:
             trials = []
-            for seed in args.seeds:
+            seeds = args.seeds if args.seeds is not None else [row[0] for row in db.execute(
+                "SELECT seed FROM runs WHERE strategy=? AND status='complete' ORDER BY seed",
+                (strategy,))]
+            for seed in seeds:
                 status = db.execute(
                     "SELECT status FROM runs WHERE strategy=? AND seed=?",
                     (strategy, seed),
                 ).fetchone()
                 if status != ("complete",):
-                    raise RuntimeError(f"{strategy}, seed {seed}: run is not complete")
+                    print(f"Skipping {strategy} seed={seed}: not complete")
+                    continue
                 rows = db.execute(
                     "SELECT labels,test_accuracy FROM metrics WHERE strategy=? AND seed=? ORDER BY round",
                     (strategy, seed),
                 ).fetchall()
                 if [row[0] for row in rows] != labels_expected:
-                    raise RuntimeError(f"{strategy}, seed {seed}: incomplete label-budget sequence")
-                trials.append([row[1] for row in rows])
+                    print(f"Skipping {strategy} seed={seed}: incomplete label-budget sequence")
+                    continue
+                accuracy = np.asarray([row[1] for row in rows], dtype=float)
+                if not np.all(np.isfinite(accuracy)) or np.any((accuracy < 0) | (accuracy > 1)):
+                    print(f"Skipping {strategy} seed={seed}: invalid accuracy")
+                    continue
+                trials.append(accuracy)
 
+            if not trials:
+                print(f"Skipping {strategy}: no complete valid trials")
+                continue
             values = np.asarray(trials, dtype=float)
             if args.smoothing == "max":
                 values = np.maximum.accumulate(values, axis=1)
             mean = values.mean(axis=0)
-            sem = values.std(axis=0, ddof=1) / np.sqrt(len(args.seeds))
-            summaries.append((strategy, np.asarray(labels_expected), mean, sem))
+            sem = values.std(axis=0, ddof=1) / np.sqrt(len(trials)) if len(trials) > 1 else None
+            summaries.append((strategy, np.asarray(labels_expected), mean, sem, len(trials)))
 
+    if not summaries:
+        print("No complete valid runs; no plot saved.")
+        return
     output.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(4.5, 3.6))
     csv_rows = []
-    for strategy, labels, mean, sem in summaries:
+    for strategy, labels, mean, sem, count in summaries:
         color = COLORS[ALL.index(strategy)]
-        ax.plot(labels, mean, label=strategy.upper(), color=color, linewidth=2)
-        ax.fill_between(labels, mean - sem, mean + sem, color=color, alpha=.25)
-        for n, m, e in zip(labels, mean, sem):
-            csv_rows.append([strategy, int(n), float(m), float(e), len(args.seeds), args.smoothing])
+        ax.plot(labels, mean, label=f"{strategy.upper()} (n={count})", color=color, linewidth=2)
+        if sem is not None:
+            ax.fill_between(labels, mean - sem, mean + sem, color=color, alpha=.25)
+        errors = sem if sem is not None else [None] * len(labels)
+        for n, m, e in zip(labels, mean, errors):
+            csv_rows.append([strategy, int(n), float(m), float(e) if e is not None else None, count, args.smoothing])
 
     ax.set_xlabel("Number of Labels")
     ax.set_ylabel("Test Accuracy")

@@ -23,9 +23,8 @@ def main():
     parser.add_argument("--seeds", nargs="+", type=int)
     args = parser.parse_args()
     cfg = settings("cifar10")
-    seeds = args.seeds if args.seeds is not None else cfg["seeds"]
-    if len(seeds) < 2 or len(set(seeds)) != len(seeds):
-        parser.error("standard error requires at least two distinct seeds")
+    if args.seeds is not None and len(set(args.seeds)) != len(args.seeds):
+        parser.error("seeds must be unique")
     path = (args.input or database_path(cfg)).resolve()
     if not path.is_file():
         parser.error(f"database not found: {path}")
@@ -34,25 +33,39 @@ def main():
     with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True) as db:
         for strategy in args.strategies:
             trials = []
+            seeds = args.seeds if args.seeds is not None else [row[0] for row in db.execute(
+                "SELECT seed FROM runs WHERE strategy=? AND status='complete' ORDER BY seed",
+                (strategy,))]
             for seed in seeds:
                 status = db.execute("SELECT status FROM runs WHERE strategy=? AND seed=?",
                                     (strategy, seed)).fetchone()
                 if status != ("complete",):
-                    raise RuntimeError(f"{strategy} seed={seed} is not complete")
+                    print(f"Skipping {strategy} seed={seed}: not complete")
+                    continue
                 rows = db.execute("SELECT labels,test_accuracy FROM metrics WHERE strategy=? AND seed=? "
                                   "ORDER BY round", (strategy, seed)).fetchall()
                 if [r[0] for r in rows] != labels:
-                    raise RuntimeError(f"{strategy} seed={seed} has missing or mismatched rounds")
+                    print(f"Skipping {strategy} seed={seed}: missing or mismatched rounds")
+                    continue
                 values = np.asarray([r[1] for r in rows], dtype=float)
                 if not np.all(np.isfinite(values)) or np.any((values < 0) | (values > 1)):
-                    raise RuntimeError(f"{strategy} seed={seed} has invalid accuracy")
+                    print(f"Skipping {strategy} seed={seed}: invalid accuracy")
+                    continue
                 trials.append(np.maximum.accumulate(values))
+            if not trials:
+                print(f"Skipping {strategy}: no complete valid trials")
+                continue
             trials = np.asarray(trials)
             mean = trials.mean(axis=0)
-            sem = trials.std(axis=0, ddof=1) / np.sqrt(len(seeds))
+            sem = trials.std(axis=0, ddof=1) / np.sqrt(len(trials)) if len(trials) > 1 else None
             color = COLORS[STRATEGIES.index(strategy)]
-            ax.plot(labels, mean, label=strategy.upper(), color=color, linewidth=2)
-            ax.fill_between(labels, mean - sem, mean + sem, color=color, alpha=.18)
+            ax.plot(labels, mean, label=f"{strategy.upper()} (n={len(trials)})", color=color, linewidth=2)
+            if sem is not None:
+                ax.fill_between(labels, mean - sem, mean + sem, color=color, alpha=.18)
+    if not ax.lines:
+        plt.close(fig)
+        print("No complete valid runs; no plot saved.")
+        return
     ax.set(xlabel="Number of Labels", ylabel="Test Accuracy")
     ax.grid(True, linestyle="--", alpha=.6)
     ax.legend(fontsize=8)
