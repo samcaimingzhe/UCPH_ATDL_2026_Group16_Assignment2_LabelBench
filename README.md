@@ -38,6 +38,7 @@ python scripts/run_fig1.py --gpus 0 --output-dir results/fig1
 python scripts/plot_fig1.py --input results/fig1/figure1a.sqlite --output-dir results/plots/
 
 
+
 # Figure 5(a): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel a --phase all --gpus 0 --output results/fig5
 python scripts/plot_fig5.py --panel a  --input results/fig5/figure5a.sqlite --output-dir results/plots/
@@ -49,6 +50,8 @@ python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --ou
 # Figure 5(c): proxy selection, then full-model evaluation
 python scripts/run_fig5.py --panel c --phase all --gpus 0 --output results/fig5
 python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output-dir results/plots/
+
+
 
 # Figure 6: SSL generalization
 python scripts/run_fig6.py  --trainer uda --gpus 0 --output-dir results/fig6 
@@ -65,6 +68,8 @@ python scripts/plot_fig6.py --database results/fig6/figure6_softmatch.sqlite --t
 
 python scripts/run_fig6.py  --trainer freematch--gpus 0 --output-dir results/fig6 
 python scripts/plot_fig6.py --database results/fig6/figure6_freematch.sqlite --trainer freematch --output-dir results/plots
+
+
 
 # Check the results
 python scripts/check_db.py --db results/fig1a/figure1a.sqlite
