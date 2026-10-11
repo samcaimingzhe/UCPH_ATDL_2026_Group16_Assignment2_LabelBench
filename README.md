@@ -50,7 +50,21 @@ python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --ou
 python scripts/run_fig5.py --panel c --phase all --gpus 0 --output results/fig5
 python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output-dir results/plots/
 
+# Figure 6: SSL generalization
+python scripts/run_fig6.py  --trainer uda --gpus 0 --output-dir results/fig6 
 python scripts/plot_fig6.py --database results/fig6/figure6_uda.sqlite --trainer uda --output-dir results/plots
+
+python scripts/run_fig6.py  --trainer pseudolabel --gpus 0 --output-dir results/fig6 
+python scripts/plot_fig6.py --database results/fig6/figure6_pseudolabel.sqlite --trainer pseudolabel --output-dir results/plots
+
+python scripts/run_fig6.py  --trainer flexmatch --gpus 0 --output-dir results/fig6 
+python scripts/plot_fig6.py --database results/fig6/figure6_flexmatch.sqlite --trainer flexmatch --output-dir results/plots
+
+python scripts/run_fig6.py  --trainer softmatch --gpus 0 --output-dir results/fig6 
+python scripts/plot_fig6.py --database results/fig6/figure6_softmatch.sqlite --trainer softmatch --output-dir results/plots
+
+python scripts/run_fig6.py  --trainer freematch--gpus 0 --output-dir results/fig6 
+python scripts/plot_fig6.py --database results/fig6/figure6_freematch.sqlite --trainer freematch --output-dir results/plots
 
 # Check the results
 python scripts/check_db.py --db results/fig1a/figure1a.sqlite
@@ -60,10 +74,7 @@ python scripts/check_db.py --db results/fig5/figure5c.sqlite
 ```
 Completed method/seed runs are skipped when restarted with the same output directory. An interrupted run restarts its current method/seed from round 1. 
 ```
-# Plotting
-python scripts/plot_fig1a.py --input results/fig1a/figure1a.sqlite --output results/plots/
-python scripts/plot_fig5.py --input results/fig1a/figure1a.sqlite --output results/plots/
-
+# Plot additional metrics
 python scripts/plot_all_metrics.py --input results/fig5/figure5c.sqlite --output-dir results/plots/
 ```
 
