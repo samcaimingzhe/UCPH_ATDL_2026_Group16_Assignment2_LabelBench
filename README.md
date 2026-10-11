@@ -101,5 +101,17 @@ python scripts/plot_all_metrics.py --input results/fig5/figure5c.sqlite --output
       <em>Figure 5(c): Generalization accuracy on CIFAR-10 with passive training.</em>
     </td>
   </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="compare/fig4.jpg" alt="Figure 4: active learning results across ImageNet, fMoW, and CIFAR-100" width="100%"><br>
+      <em>Figure 4: Active learning with FlexMatch across ImageNet, fMoW, and CIFAR-100, showing generalization and pool metrics.</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="compare/Fig6_compare.jpg" alt="Figure 6 original and reproduction comparison" width="100%"><br>
+      <em>Figure 6: Original results and our reproduction across Pseudolabel, UDA, FlexMatch, SoftMatch, and FreeMatch.</em>
+    </td>
+  </tr>
 </table>
+
+
 
