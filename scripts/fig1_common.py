@@ -7,11 +7,13 @@ STRATEGIES = ["random", "confidence", "entropy", "margin", "coreset",
 SEEDS = [1234, 3334155, 6667077, 9999999]
 
 
-def settings():
+def settings(dataset="cifar10"):
+    if dataset != "cifar10":
+        raise ValueError("Figure 1 settings currently support only cifar10")
     return {"batch": 1000, "rounds": 10, "seeds": SEEDS,
             "trainer_config":
             ROOT / "configs/trainer/cifar10/flexmatch/clip_ViTB32_finetune.json",
-            "output": ROOT / "results/fig1a"}
+            "output": ROOT / "results/fig1"}
 
 
 def database_path(cfg, output_dir=None):
