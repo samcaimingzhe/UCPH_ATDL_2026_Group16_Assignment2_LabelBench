@@ -13,7 +13,7 @@ COLORS = [
     "tab:blue", "tab:orange", "tab:green", "tab:red",
     "tab:purple", "tab:brown", "tab:pink", "tab:olive",
 ]
-DEFAULT_SEEDS = np.linspace(1234, 9999999, num=3, dtype=int).tolist()
+DEFAULT_SEEDS = [1234, 3334155, 6667077]
 BATCH = 1000
 ROUNDS = 10
 TRAINERS = ("flexmatch", "softmatch", "freematch", "uda", "pseudolabel", "passive")
