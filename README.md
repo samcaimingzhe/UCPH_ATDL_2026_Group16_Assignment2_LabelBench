@@ -3,7 +3,7 @@
 
 Paper: [LabelBench: A Comprehensive Framework for Benchmarking Adaptive Label-Efficient Learning](https://arxiv.org/abs/2306.09910)
 
-Group 16 contributors: Mingzhe Cai; Shang Xi; Yusheng Lu; Zecheng Zhang;
+Group 16 contributors: Mingzhe Cai; Shang Xi; Yusheng Lu; Chengze Zhang;
 
 This repository is trying to reproduce Figures 1(a) and 5(a) from LabelBench. We use CIFAR-10, CLIP ViT-B/32, FlexMatch, and eight active-learning strategies. Larger datasets such as ImageNet experiments are outside our compute budget;
 
