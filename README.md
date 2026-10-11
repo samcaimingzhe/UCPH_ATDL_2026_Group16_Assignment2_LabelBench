@@ -102,8 +102,8 @@ python scripts/plot_all_metrics.py --input results/fig5/figure5c.sqlite --output
     </td>
   </tr>
   <tr>
-    <td width="50%" align="center">
-      <img src="compare/Fig6_compare.jpg" alt="Figure 6 original and reproduction comparison" width="100%"><br>
+    <td colspan="2" align="center">
+      <img src="compare/Fig6_compare.jpg" alt="Figure 6 original and reproduction comparison" width="50%"><br>
       <em>Figure 6: Original results and our reproduction across Pseudolabel, UDA, FlexMatch, SoftMatch, and FreeMatch.</em>
     </td>
   </tr>
