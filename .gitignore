@@ -1,0 +1,11 @@
+
+
+# Local experiment artifacts (Colab)
+**/__pycache__/
+*.py[cod]
+/data/
+/model/
+/results/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
