@@ -50,6 +50,8 @@ python scripts/plot_fig5.py --panel b  --input results/fig5/figure5b.sqlite --ou
 python scripts/run_fig5.py --panel c --phase all --gpus 0 --output results/fig5
 python scripts/plot_fig5.py --panel c  --input results/fig5/figure5c.sqlite --output-dir results/plots/
 
+python scripts/plot_fig6.py --database results/fig6/figure6_uda.sqlite --trainer uda --output-dir results/plots
+
 # Check the results
 python scripts/check_db.py --db results/fig1a/figure1a.sqlite
 python scripts/check_db.py --db results/fig5/figure5a.sqlite
